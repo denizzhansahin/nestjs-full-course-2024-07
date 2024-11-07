@@ -4,6 +4,8 @@ import { Property } from 'src/entities/property.entities';
 import { Repository } from 'typeorm';
 import { CreatePropertyDto } from './dto/createPrperty.dto';
 import { UpdateProperty } from './dto/updateProperty.dto';
+import { PaginationDTO } from './dto/pagination.dto';
+import { DEFAULT_PAGE_SIZE } from 'src/utils/constant';
 
 @Injectable()
 export class PropertyService {
@@ -11,8 +13,11 @@ export class PropertyService {
         @InjectRepository(Property)
         private propertyRepo:Repository<Property>){}
         
-    async findAll(){
-        return await this.propertyRepo.find()
+    async findAll(paginationDTO:PaginationDTO){
+        return await this.propertyRepo.find({
+            skip:paginationDTO.skip,
+            take:paginationDTO.limit??DEFAULT_PAGE_SIZE
+        })
     }
 
     async findOne(id:number){
@@ -37,3 +42,12 @@ export class PropertyService {
         return await this.propertyRepo.delete({id})
     }
 }
+
+
+/*
+
+pagination öncesi:
+    async findAll(){
+        return await this.propertyRepo.find()
+    }
+*/
