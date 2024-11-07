@@ -4,11 +4,13 @@ import { APP_PIPE } from '@nestjs/core';
 import { PropertyService } from './property.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Property } from 'src/entities/property.entities';
+import { PropertyFeature } from 'src/entities/propertyFeature.entity';
+import { User } from 'src/entities/user.entity';
 
 @Module({
   controllers: [PropertyController],
   providers: [PropertyService],
-  imports:[TypeOrmModule.forFeature([Property])]
+  imports:[TypeOrmModule.forFeature([Property,PropertyFeature,User])]
   
 /*
   providers:[//özel olarak pip ekleme
