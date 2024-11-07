@@ -1,6 +1,6 @@
 import { InjectRepository } from "@nestjs/typeorm";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
-import { Entity, PrimaryColumn, PrimaryGeneratedColumn, Column, Repository, OneToOne, JoinColumn, ManyToOne } from "typeorm";
+import { Entity, PrimaryColumn, PrimaryGeneratedColumn, Column, Repository, OneToOne, JoinColumn, ManyToOne, ManyToMany } from "typeorm";
 import { PropertyFeature } from "./propertyFeature.entity";
 import { User } from "./user.entity";
 
@@ -33,4 +33,7 @@ export class Property {
     @ManyToOne(()=>User,(user)=>user.properties) //çoktan bir, çok kayıtlar yalnızca tek kullanıcı içerebilir
     @JoinColumn({name:"ownerId"})
     user:User
+
+    @ManyToMany(()=>User,(user)=>user.likedProperties) //bir veri çok ile ilgili olabilir, çoktan çoka
+    likedBy : User[]
 }
