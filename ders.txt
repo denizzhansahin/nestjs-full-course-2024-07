@@ -118,6 +118,10 @@
     npm i -D @types/bcrypt
 
     nest g res auth --no-spec  ///bu sefer CRUD için No olacak
+
+    npm install  --save @nestjs/passport passport passport-local
+
+    nest g gu auth/guards/local-auth
 */
 
 
