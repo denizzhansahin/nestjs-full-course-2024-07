@@ -1,34 +1,45 @@
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
-import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Property } from "./property.entities";
 
+
+import * as bcrypt from "bcrypt"
 
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
-    id:number
+    id: number
 
     @Column()
-    firstName:string
+    firstName: string
 
     @Column()
-    lastName:string
+    lastName: string
 
     @Column()
-    email:string
+    email: string
 
-    @Column()
-    avatarUrl:string
+    @Column({default:"/"})
+    avatarUrl: string
 
     @CreateDateColumn()
-    createdAt:Date
+    createdAt: Date
 
-    @OneToMany(()=>Property, (property)=>property.user) //birden çok, bir kayıt çok kayıt alabilir
+    @Column()
+    //@JoinColumn()
+    password: string
+
+    @OneToMany(() => Property, (property) => property.user) //birden çok, bir kayıt çok kayıt alabilir
     //@JoinColumn()
     properties: Property[]
 
 
-    @ManyToMany(()=>Property,(property)=>property.likedBy) //bir veri çok ile ilgili olabilir, çoktan çoka
-    @JoinTable({name:"user_liked_properties"})
+    @ManyToMany(() => Property, (property) => property.likedBy) //bir veri çok ile ilgili olabilir, çoktan çoka
+    @JoinTable({ name: "user_liked_properties" })
     likedProperties: Property[]
+
+    @BeforeInsert()
+    async hashPassword() {
+        this.password = await bcrypt.hash(this.password, 10)
+    }
 }

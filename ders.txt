@@ -108,7 +108,16 @@
     findAll() {
         return this.propertyService.findAll()
     }
-    
+
+
+
+
+
+    nest g res user
+    npm i bcrypt
+    npm i -D @types/bcrypt
+
+    nest g res auth --no-spec  ///bu sefer CRUD için No olacak
 */
 
 
