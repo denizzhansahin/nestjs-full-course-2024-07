@@ -54,6 +54,8 @@ export class AuthService {
     console.log(userId)
     const user = await this.userService.findOne(userId)
     console.log(user)
+    console.log(user)
+    console.log(user)
     if(!user) throw new UnauthorizedException("User not found!")
     const currentUser:CurrentUser = {id:user.id, role:user.role}
     return currentUser

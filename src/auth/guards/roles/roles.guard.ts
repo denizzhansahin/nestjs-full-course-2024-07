@@ -14,7 +14,7 @@ export class RolesGuard implements CanActivate {
       context.getHandler(),
       context.getClass()
     ])
-
+    if(!requireRols) return true;
     const user = context.switchToHttp().getRequest().user //jwt.strategy içindeki user ile ilgili validate içinden alınacak
     console.log({user})
     const hasRequiredRole = requireRols.some((role)=>user.role==role)//role kontrolü

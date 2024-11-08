@@ -6,30 +6,34 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 import { Role } from 'src/auth/enums/role.enum';
 import { Roles, ROLES_KEY } from 'src/auth/decorators/roles.decorator';
 import { RolesGuard } from 'src/auth/guards/roles/roles.guard';
+import { Public } from 'src/auth/decorators/public.decorator';
 
 
-@Roles(Role.USER)
+
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-
+  @Roles(Role.ADMIN)
   @UseGuards(JwtAuthGuard)
   @Get("profile")
   getProfile(@Req() req){
     return this.userService.findOne(req.user.id)
   }
 
+  @Roles(Role.ADMIN)
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
+  @Roles(Role.ADMIN)
   @Get()
   findAll() {
     return this.userService.findAll();
   }
 
+  @Roles(Role.ADMIN)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.userService.findOne(+id);
@@ -42,8 +46,9 @@ export class UserController {
 
   //@SetMetadata('role',(Role.ADMIN))
   @Roles(Role.ADMIN)
-  @UseGuards(RolesGuard)
-  @UseGuards(JwtAuthGuard)
+  //global eklediğimiz için kapattım
+  //@UseGuards(RolesGuard)
+  //@UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);

@@ -3,11 +3,17 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { LocalAuthGuard } from './guards/local-auth/local-auth.guard';
 import { RefreshAuthGuard } from './guards/refresh-auth/refresh-auth.guard';
+import { Public } from './decorators/public.decorator';
+import { Roles } from './decorators/roles.decorator';
+import { Role } from './enums/role.enum';
+
+
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) { }
 
+  @Public()
   @HttpCode(HttpStatus.OK)//local.strategy içindeki yer alan ve auth.service'den gelen validatorUser kullanılır
   @UseGuards(LocalAuthGuard)
   @Post('login')
@@ -19,7 +25,7 @@ export class AuthController {
     return this.authService.login(req.user.id)
   }
 
-
+  @Public()
   @UseGuards(RefreshAuthGuard)
   @Post('refresh')
   refreshToken(@Req() req){
