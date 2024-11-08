@@ -8,7 +8,6 @@ import { RefreshAuthGuard } from './guards/refresh-auth/refresh-auth.guard';
 export class AuthController {
   constructor(private readonly authService: AuthService) { }
 
-
   @HttpCode(HttpStatus.OK)//local.strategy içindeki yer alan ve auth.service'den gelen validatorUser kullanılır
   @UseGuards(LocalAuthGuard)
   @Post('login')

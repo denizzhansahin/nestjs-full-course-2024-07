@@ -5,6 +5,7 @@ import { UserService } from 'src/user/user.service';
 import { AuthJwtPayload } from './types/auth-jwtPayload';
 import refreshJwtConfig from './config/refresh-jwt.config';
 import { ConfigType } from '@nestjs/config';
+import { CurrentUser } from './types/current-user';
 
 @Injectable()
 export class AuthService {
@@ -46,4 +47,15 @@ export class AuthService {
             token,
         }
       }
+
+
+    
+  async validateJwtUser(userId:number){
+    console.log(userId)
+    const user = await this.userService.findOne(userId)
+    console.log(user)
+    if(!user) throw new UnauthorizedException("User not found!")
+    const currentUser:CurrentUser = {id:user.id, role:user.role}
+    return currentUser
+  }
 }

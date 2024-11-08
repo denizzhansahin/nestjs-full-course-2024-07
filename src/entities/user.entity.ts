@@ -4,6 +4,7 @@ import { Property } from "./property.entities";
 
 
 import * as bcrypt from "bcrypt"
+import { Role } from "src/auth/enums/role.enum";
 
 @Entity()
 export class User {
@@ -19,7 +20,7 @@ export class User {
     @Column()
     email: string
 
-    @Column({default:"/"})
+    @Column({ default: "/" })
     avatarUrl: string
 
     @CreateDateColumn()
@@ -28,6 +29,13 @@ export class User {
     @Column()
     //@JoinColumn()
     password: string
+
+    @Column({
+        type: 'text',//enum olmadı
+        enum: Role,
+        default: Role.USER
+    })
+    role: Role
 
     @OneToMany(() => Property, (property) => property.user) //birden çok, bir kayıt çok kayıt alabilir
     //@JoinColumn()
@@ -42,4 +50,7 @@ export class User {
     async hashPassword() {
         this.password = await bcrypt.hash(this.password, 10)
     }
+
+    @Column({ nullable: true })
+    hashedRefreshToken: string;
 }

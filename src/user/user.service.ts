@@ -28,7 +28,7 @@ export class UserService {
   async findOne(id: number) {
     return this.UserRepo.findOne({
       where:{id},
-      select:['firstName','lastName','avatarUrl'],
+      select:['id','firstName','lastName','avatarUrl','hashedRefreshToken','role'],
     })
   }
 
@@ -39,4 +39,7 @@ export class UserService {
   remove(id: number) {
     return `This action removes a #${id} user`;
   }
+
+
+
 }
