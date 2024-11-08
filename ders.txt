@@ -122,7 +122,13 @@
     npm install  --save @nestjs/passport passport passport-local
 
     nest g gu auth/guards/local-auth
-*/
+
+    npm i @nestjs/jwt passport-jwt
+    npm i -D @types/passport-jwt
+
+    openssl rand -hex 32
+
+    nest g gu auth/guards/jwt-auth
 
 
 

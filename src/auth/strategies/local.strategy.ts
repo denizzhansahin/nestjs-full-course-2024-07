@@ -12,8 +12,9 @@ export class LocalStrategy extends PassportStrategy(Strategy){
         })
     }
 
+    //kullanıcı bilgisine göre giriş yapma
     validate(email:string,password:string){
-        console.log("dddddd")
+        console.log("kullanıcı bilgisine göre giriş yapma")
         return this.authService.validateUser(email,password)
     }
 }

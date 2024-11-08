@@ -18,7 +18,7 @@ import { AuthModule } from './auth/auth.module';
     }),PropertyModule,
     TypeOrmModule.forRoot({ //veya getCongig
       type: 'sqlite',
-      database: 'database2.sqlite',
+      database: 'database3.sqlite',
       synchronize: true,
       logging: false,
       entities: [Property,PropertyFeature,User],
