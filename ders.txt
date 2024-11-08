@@ -130,6 +130,14 @@
 
     nest g gu auth/guards/jwt-auth
 
+    nest g gu auth/guards/refresh-auth
+
+
+{
+  "id": 1,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTczMTA3Mjg4NiwiZXhwIjoxNzMxMDcyOTQ2fQ.H4eYaPlF7V1fQ62NdqGCpHH6XfSrnibltAapOgGyD8Q",
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTczMTA3Mjg4NiwiZXhwIjoxNzMxNjc3Njg2fQ.EbHlZrcZA204hCeKtN99Gnut72qQjNvuOZ0uodbyu8w"
+}
 
 
 /*

@@ -1,7 +1,8 @@
-import { Controller, Post, UseGuards, Request, HttpStatus, HttpCode } from '@nestjs/common';
+import { Controller, Post, UseGuards, Request, HttpStatus, HttpCode, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { LocalAuthGuard } from './guards/local-auth/local-auth.guard';
+import { RefreshAuthGuard } from './guards/refresh-auth/refresh-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -16,9 +17,15 @@ export class AuthController {
     console.log("token alma")
     const token = await this.authService.login(req.user.id)
     console.log("token alma 1")
-    return { id: req.user.id, token }
+    return this.authService.login(req.user.id)
   }
 
+
+  @UseGuards(RefreshAuthGuard)
+  @Post('refresh')
+  refreshToken(@Req() req){
+    return this.authService.refreshToken(req.user.id)
+  }
 
   @HttpCode(HttpStatus.OK)//local.strategy içindeki yer alan ve auth.service'den gelen validatorUser kullanılır
   @UseGuards(AuthGuard('local'))
